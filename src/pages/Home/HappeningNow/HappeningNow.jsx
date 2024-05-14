@@ -14,7 +14,7 @@ import Carousel from "react-simply-carousel";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 
-const HappeningNow = ({eventData}) => {
+const HappeningNow = ({eventData ,isLoading}) => {
   
   console.log(eventData);
     const [activeSlide, setActiveSlide] = useState(0);
@@ -55,6 +55,8 @@ const HappeningNow = ({eventData}) => {
           rating: "4.8",
         },
       ];
+
+      
   return (
     <div className="bg-bgSecondary-400 pt-8 pb-12 px-5 ">
       <Wrapper>

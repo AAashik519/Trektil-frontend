@@ -5,26 +5,28 @@ import TrendingSection from '../TrendingSection/TrendingSection'
 import ExplorSection from '../ExplorSection/ExplorSection'
 import axios from 'axios'
 
+import { useGetAttractionApiQuery } from '../../../app/services/attraction'
+import LoadingUi from '../../../components/LoadingUi/LoadingUi'
+
 const Home = () => {
-  const [eventButton, setEventButton] = useState('ATTRACTION');
-  const [eventData, setEventData] = useState([]);
-  console.log(eventData);
-
-
-    useEffect(()=>{
-    
-      fetch(`https://sandbox.trektil.com/api/v1/attraction/?category=${eventButton}`)
-      .then(res => res.json())
-      .then(data => setEventData(data.results))
-  },[eventButton])
-
-
+  const [eventButton, setEventButton] = useState('LOCAL');
+  // const [eventData, setEventData] = useState([]);
   
+  const { data, error, isLoading } = useGetAttractionApiQuery(eventButton)
+  
+  
+
+
+  if (isLoading) {
+    return  <LoadingUi /> // Render loading indicator
+  }
+
+  console.log(data.results);
 
   return (
     <div>
         <Header eventButton={eventButton}  setEventButton={setEventButton }/>
-        <HappeningNow eventData= {eventData} />
+        <HappeningNow eventData= {data.results} isLoading={isLoading} />
         <TrendingSection />
         <ExplorSection />
     </div>
